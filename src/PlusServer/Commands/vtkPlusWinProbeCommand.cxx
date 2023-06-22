@@ -275,6 +275,7 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_DECIMATION)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_FRAME_RATE_LIMIT)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_HARMONIC_ENABLED)
+        || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_TX_CURRENT)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_TRANSDUCER_INTERNAL_ID)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_ARFI_ENABLED)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_ARFI_START_SAMPLE)
@@ -334,6 +335,8 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
           res = std::to_string(device->GetBFrameRateLimit());
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_HARMONIC_ENABLED))
           res = device->GetBHarmonicEnabled() ? "True" : "False";
+      else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_HARMONIC_ENABLED))
+          res = std::to_string(device->GetBTxCurrent());
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_TRANSDUCER_INTERNAL_ID))
           res = std::to_string(device->GetTransducerInternalID());
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_ARFI_ENABLED))
@@ -403,6 +406,7 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_DECIMATION)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_FRAME_RATE_LIMIT)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_HARMONIC_ENABLED)
+             || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_TX_CURRENT)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_ARFI_ENABLED)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_ARFI_START_SAMPLE)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_ARFI_STOP_SAMPLE)
@@ -533,6 +537,12 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
       {
         bool set = igsioCommon::IsEqualInsensitive(value, "true") ? true : false;
         device->SetBHarmonicEnabled(set);
+        status = PLUS_SUCCESS;
+      }
+      else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_TX_CURRENT))
+      {
+        int32_t val = stoi(value);
+        device->SetBTxCurrent(val);
         status = PLUS_SUCCESS;
       }
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_ARFI_ENABLED))

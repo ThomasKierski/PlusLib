@@ -64,6 +64,8 @@ const char* vtkPlusWinProbeVideoSource::SET_B_FRAME_RATE_LIMIT       = "SetBFram
 const char* vtkPlusWinProbeVideoSource::GET_B_FRAME_RATE_LIMIT       = "GetBFrameRateLimit";
 const char* vtkPlusWinProbeVideoSource::SET_B_HARMONIC_ENABLED       = "SetBHarmonicEnabled";
 const char* vtkPlusWinProbeVideoSource::GET_B_HARMONIC_ENABLED       = "GetBHarmonicEnabled";
+const char* vtkPlusWinProbeVideoSource::SET_B_TX_CURRENT             = "SetBTxCurrent";
+const char* vtkPlusWinProbeVideoSource::GET_B_TX_CURRENT             = "GetBTxCurrent";
 const char* vtkPlusWinProbeVideoSource::GET_TRANSDUCER_INTERNAL_ID   = "GetTransducerInternalID";
 const char* vtkPlusWinProbeVideoSource::SET_ARFI_ENABLED             = "SetARFIEnabled";
 const char* vtkPlusWinProbeVideoSource::GET_ARFI_ENABLED             = "GetARFIEnabled";
@@ -262,6 +264,7 @@ PlusStatus vtkPlusWinProbeVideoSource::WriteConfiguration(vtkXMLDataElement* roo
   deviceConfig->SetIntAttribute("MWidthLines", this->m_MWidth);
   deviceConfig->SetIntAttribute("MAcousticLineCount", this->GetMAcousticLineCount());
   deviceConfig->SetIntAttribute("MDepth", this->GetMDepth());
+  // deviceConfig->SetIntAttribute("BTxCurrent", this->GetBTxCurrent());
   deviceConfig->SetUnsignedLongAttribute("Voltage", this->GetVoltage());
   deviceConfig->SetUnsignedLongAttribute("MinValue", this->GetMinValue());
   deviceConfig->SetUnsignedLongAttribute("MaxValue", this->GetMaxValue());
@@ -1703,6 +1706,25 @@ bool vtkPlusWinProbeVideoSource::GetBHarmonicEnabled()
     m_BHarmonicEnabled = GetBIsHarmonic();
   }
   return m_BHarmonicEnabled;
+}
+
+void vtkPlusWinProbeVideoSource::SetBTxCurrent(int value)
+{
+  if(Connected)
+  {
+    SetTxTxCurrent(value);
+    SetPendingRecreateTables(true);
+  }
+  m_BTxCurrent = GetTxTxCurrent();
+}
+
+int vtkPlusWinProbeVideoSource::GetBTxCurrent()
+{
+  if(Connected)
+  {
+    m_BTxCurrent = GetTxTxCurrent();
+  }
+  return m_BTxCurrent;
 }
 
 bool vtkPlusWinProbeVideoSource::GetMModeEnabled()

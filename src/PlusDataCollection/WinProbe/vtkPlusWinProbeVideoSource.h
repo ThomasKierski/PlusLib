@@ -72,6 +72,8 @@ public:
   static const char* GET_B_FRAME_RATE_LIMIT;
   static const char* SET_B_HARMONIC_ENABLED;
   static const char* GET_B_HARMONIC_ENABLED;
+  static const char* SET_B_TX_CURRENT;
+  static const char* GET_B_TX_CURRENT;
   static const char* GET_TRANSDUCER_INTERNAL_ID;
   static const char* SET_ARFI_ENABLED;
   static const char* GET_ARFI_ENABLED;
@@ -523,6 +525,7 @@ protected:
   double m_FirstGainValue = 15;
   int32_t m_BFrameRateLimit = 0;
   bool m_BHarmonicEnabled = false;
+  uint8_t m_BTxCurrent = 0;
   std::vector<vtkPlusDataSource*> m_PrimarySources;
   std::vector<vtkPlusDataSource*> m_ExtraSources;
 
