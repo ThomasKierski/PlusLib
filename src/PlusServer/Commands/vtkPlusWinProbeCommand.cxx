@@ -335,7 +335,7 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
           res = std::to_string(device->GetBFrameRateLimit());
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_HARMONIC_ENABLED))
           res = device->GetBHarmonicEnabled() ? "True" : "False";
-      else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_HARMONIC_ENABLED))
+      else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_TX_CURRENT))
           res = std::to_string(device->GetBTxCurrent());
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_TRANSDUCER_INTERNAL_ID))
           res = std::to_string(device->GetTransducerInternalID());
@@ -541,7 +541,7 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
       }
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_TX_CURRENT))
       {
-        int32_t val = stoi(value);
+        int val = stoi(value);
         device->SetBTxCurrent(val);
         status = PLUS_SUCCESS;
       }

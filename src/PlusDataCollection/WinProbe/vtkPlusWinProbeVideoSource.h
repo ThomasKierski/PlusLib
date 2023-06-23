@@ -525,7 +525,7 @@ protected:
   double m_FirstGainValue = 15;
   int32_t m_BFrameRateLimit = 0;
   bool m_BHarmonicEnabled = false;
-  uint8_t m_BTxCurrent = 0;
+  int m_BTxCurrent = 0;
   std::vector<vtkPlusDataSource*> m_PrimarySources;
   std::vector<vtkPlusDataSource*> m_ExtraSources;
 
