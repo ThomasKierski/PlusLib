@@ -1712,7 +1712,7 @@ void vtkPlusWinProbeVideoSource::SetBTxCurrent(int value)
 {
   if(Connected)
   {
-    SetTxTxCurrent(value);
+    SetBTxCurrent(value);
     SetPendingRecreateTables(true);
   }
   m_BTxCurrent = GetTxTxCurrent();
@@ -1722,7 +1722,7 @@ int vtkPlusWinProbeVideoSource::GetBTxCurrent()
 {
   if(Connected)
   {
-    m_BTxCurrent = GetTxTxCurrent();
+    m_BTxCurrent = SetBTxCurrent();
   }
   return m_BTxCurrent;
 }
