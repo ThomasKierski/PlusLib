@@ -442,6 +442,9 @@ public:
 
   PlusStatus SendCommand(const char * command);
 
+  void SetBTxCurrent(int value);
+  int GetBTxCurrent();
+
 protected:
   /*! Constructor */
   vtkPlusWinProbeVideoSource();
