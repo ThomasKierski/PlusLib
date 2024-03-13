@@ -283,6 +283,7 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_TRANSMIT_FNUMBER)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_APODIZATION_FNUMBER)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_FILTER_COEFFICIENT_SET)
+        || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_TX_FILTER_COEFFICIENT_SET)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_TRANSDUCER_INTERNAL_ID)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_ARFI_ENABLED)
         || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_ARFI_START_SAMPLE)
@@ -358,6 +359,8 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
           res = std::to_string(device->GetBApodizationFNumber());
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_FILTER_COEFFICIENT_SET))
           res = std::to_string(device->GetBFilterCoefficientSet());
+      else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_B_TX_FILTER_COEFFICIENT_SET))
+          res = std::to_string(device->GetBTXFilterCoefficientSet());
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_TRANSDUCER_INTERNAL_ID))
           res = std::to_string(device->GetTransducerInternalID());
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::GET_ARFI_ENABLED))
@@ -435,6 +438,7 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_TRANSMIT_FNUMBER)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_APODIZATION_FNUMBER)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_FILTER_COEFFICIENT_SET)
+             || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_TX_FILTER_COEFFICIENT_SET)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_ARFI_ENABLED)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_ARFI_START_SAMPLE)
              || igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_ARFI_STOP_SAMPLE)
@@ -613,6 +617,12 @@ PlusStatus vtkPlusWinProbeCommand::Execute()
       {
         uint8_t val = stod(value);
         device->SetBFilterCoefficientSet(val);
+        status = PLUS_SUCCESS;
+      }
+      else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_B_TX_FILTER_COEFFICIENT_SET))
+      {
+        uint8_t val = stod(value);
+        device->SetBTXFilterCoefficientSet(val);
         status = PLUS_SUCCESS;
       }
       else if (igsioCommon::IsEqualInsensitive(parameterName, vtkPlusWinProbeVideoSource::SET_ARFI_ENABLED))

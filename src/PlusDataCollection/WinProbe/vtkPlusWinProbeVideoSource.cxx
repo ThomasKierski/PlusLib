@@ -80,6 +80,8 @@ const char* vtkPlusWinProbeVideoSource::SET_B_APODIZATION_FNUMBER        = "SetB
 const char* vtkPlusWinProbeVideoSource::GET_B_APODIZATION_FNUMBER        = "GetBApodizationFNumber";
 const char* vtkPlusWinProbeVideoSource::SET_B_FILTER_COEFFICIENT_SET = "SetBFilterCoefficientSet";
 const char* vtkPlusWinProbeVideoSource::GET_B_FILTER_COEFFICIENT_SET = "GetBFilterCoefficientSet";
+const char* vtkPlusWinProbeVideoSource::SET_B_TX_FILTER_COEFFICIENT_SET = "SetBTXFilterCoefficientSet";
+const char* vtkPlusWinProbeVideoSource::GET_B_TX_FILTER_COEFFICIENT_SET = "GetBTXFilterCoefficientSet";
 const char* vtkPlusWinProbeVideoSource::GET_TRANSDUCER_INTERNAL_ID   = "GetTransducerInternalID";
 const char* vtkPlusWinProbeVideoSource::SET_ARFI_ENABLED             = "SetARFIEnabled";
 const char* vtkPlusWinProbeVideoSource::GET_ARFI_ENABLED             = "GetARFIEnabled";
@@ -976,6 +978,12 @@ PlusStatus vtkPlusWinProbeVideoSource::InternalConnect()
   this->SetBTransmitCycleCount(m_BTransmitCycleCount);
   this->SetBTransmitFNumber(m_BTransmitFNumber);
   this->SetBApodizationFNumber(m_BApodizationFNumber);
+  if (m_BAmplitudeModulationEnabled)
+  {
+    this->SetBTXFilterCoefficientSet(m_AmpModFilterCoefficientSet);
+  } else {
+    this->SetBTXFilterCoefficientSet(m_BTXFilterCoefficientSet);
+  }  
 
   //setup size for DirectX image
   LOG_DEBUG("Setting output size to " << m_PrimaryFrameSize[0] << "x" << m_PrimaryFrameSize[1]);
@@ -1896,6 +1904,23 @@ uint8_t vtkPlusWinProbeVideoSource::GetBFilterCoefficientSet()
     m_BFilterCoefficientSet = GetFilterFilterCoefficientSet();
   }
   return m_BFilterCoefficientSet;
+}
+
+void vtkPlusWinProbeVideoSource::SetBTXFilterCoefficientSet(uint8_t value)
+{
+  if(Connected)
+  {
+    SetTxFilterCoefficientSet(value);
+  }
+}
+
+uint8_t vtkPlusWinProbeVideoSource::GetBTXFilterCoefficientSet()
+{
+  if(Connected)
+  {
+    m_BTXFilterCoefficientSet = GetTxFilterCoefficientSet();
+  }
+  return m_BTXFilterCoefficientSet;
 }
 
 bool vtkPlusWinProbeVideoSource::GetMModeEnabled()
